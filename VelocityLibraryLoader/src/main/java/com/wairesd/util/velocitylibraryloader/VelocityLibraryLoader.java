@@ -12,30 +12,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-
-interface LibraryLoader {
-    void loadLibrary(String url, String sourceName) throws Exception;
-    boolean isLibraryLoaded(String name);
-    void loadLibraryMaven(String repoUrl, String groupId, String artifactId, String version, String sourceName) throws Exception;
-}
-
-abstract class AbstractLibraryLoader implements LibraryLoader {
-    protected final Set<String> loadedLibraries = ConcurrentHashMap.newKeySet();
-    protected final Map<String, File> libraryCache = new ConcurrentHashMap<>();
-
-    @Override
-    public boolean isLibraryLoaded(String name) {
-        return loadedLibraries.contains(name);
-    }
-
-    protected void markLoaded(String name, File file) {
-        loadedLibraries.add(name);
-        libraryCache.put(name, file);
-    }
-}
+import com.wairesd.util.velocitylibraryloader.library.AbstractLibraryLoader;
 
 @Plugin(
         id = "velocitylibraryloader",
