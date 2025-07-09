@@ -25,14 +25,11 @@ public class VelocityLibraryLoader extends AbstractLibraryLoader {
     @Inject private Logger logger;
     @Inject private ProxyServer proxy;
 
-    private final File libsDir;
-    private final File mavenLibsDir;
+    private final File librariesDir;
 
     public VelocityLibraryLoader() {
-        this.libsDir = new File("plugins/libs");
-        if (!libsDir.exists()) libsDir.mkdirs();
-        this.mavenLibsDir = new File("libraries");
-        if (!mavenLibsDir.exists()) mavenLibsDir.mkdirs();
+        this.librariesDir = new File("libraries");
+        if (!librariesDir.exists()) librariesDir.mkdirs();
     }
 
     @Subscribe
@@ -42,7 +39,7 @@ public class VelocityLibraryLoader extends AbstractLibraryLoader {
     @Override
     public void loadLibrary(String url, String sourceName) throws Exception {
         String fileName = url.substring(url.lastIndexOf('/') + 1);
-        File outFile = new File(libsDir, fileName);
+        File outFile = new File(librariesDir, fileName);
         if (!outFile.exists()) {
             HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
             conn.setConnectTimeout(10000);
@@ -66,7 +63,7 @@ public class VelocityLibraryLoader extends AbstractLibraryLoader {
         String jarName = artifactId + "-" + version + ".jar";
         String mavenPath = groupPath + "/" + artifactId + "/" + version + "/" + jarName;
         String fullUrl = repoUrl.endsWith("/") ? repoUrl + mavenPath : repoUrl + "/" + mavenPath;
-        File outFile = new File(mavenLibsDir, mavenPath);
+        File outFile = new File(librariesDir, mavenPath);
         if (!outFile.getParentFile().exists()) outFile.getParentFile().mkdirs();
         if (!outFile.exists()) {
             HttpURLConnection conn = (HttpURLConnection) new URL(fullUrl).openConnection();
