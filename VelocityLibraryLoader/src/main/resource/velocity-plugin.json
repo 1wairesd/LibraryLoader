@@ -1,0 +1,7 @@
+{
+  "id": "velocitylibraryloader",
+  "name": "VelocityLibraryLoader",
+  "version": "1.0",
+  "main": "com.wairesd.util.VelocityLibraryLoader",
+  "authors": ["1wairesd"]
+}

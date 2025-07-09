@@ -1,0 +1,3 @@
+rootProject.name = 'LibraryLoader'
+
+include(':VelocityLibraryLoader')
